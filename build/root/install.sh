@@ -66,7 +66,7 @@ mv /tmp/unpack/ffmpeg*/ff* "/usr/bin/"
 ####
 
 # define pacman packages
-pacman_packages="git nginx php-fpm rsync openssl tmux mediainfo php-geoip zip libx264 libvpx xmlrpc-c sox python2 python-pip"
+pacman_packages="git nginx php-fpm rsync openssl tmux mediainfo php-geoip zip libx264 libvpx xmlrpc-c sox python2 python-pip make gcc nodejs npm"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -120,6 +120,14 @@ curly.sh -of /tmp/htpasswd.tar.gz -url "https://github.com/binhex/arch-packages/
 
 # extract compiled version of htpasswd
 tar -xvf /tmp/htpasswd.tar.gz -C /
+
+# install node.js addon build tool for flood web ui
+npm install -g node-gyp
+
+# down flood web ui
+git clone "https://github.com/jesec/flood.git" "/opt/flood" && cd "/opt/flood"
+npm install
+npm run build
 
 # config - nginx
 ####
